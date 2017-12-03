@@ -10,7 +10,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import shaders.StaticShader;
 import shaders.TerrainShader;
-import terrain.Terrain;
+import terrains.Terrain;
 
 import java.util.ArrayList;
 import java.util.HashMap;

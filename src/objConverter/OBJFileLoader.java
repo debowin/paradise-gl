@@ -1,7 +1,9 @@
 package objConverter;
 
+import models.RawModel;
 import org.lwjgl.util.vector.Vector2f;
 import org.lwjgl.util.vector.Vector3f;
+import renderEngine.Loader;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -10,6 +12,13 @@ import java.util.List;
 public class OBJFileLoader {
 
     private static final String RES_LOC = "res/";
+
+    public static RawModel loadOBJModel(String objFileName, Loader loader){
+        ModelData modelData = loadOBJ(objFileName);
+        return loader.loadToVAO(modelData.getVertices(),
+                modelData.getTextureCoords(), modelData.getNormals(),
+                modelData.getIndices());
+    }
 
     public static ModelData loadOBJ(String objFileName) {
         FileReader isr = null;

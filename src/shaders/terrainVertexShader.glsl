@@ -21,7 +21,7 @@ void main(){
     vec4 worldPosition = transformationMatrix * vec4(position, 1);
     vec4 positionRelativeToCamera = viewMatrix * worldPosition;
     gl_Position = projectionMatrix * positionRelativeToCamera;
-    pass_textureCoords = textureCoords * 40;
+    pass_textureCoords = textureCoords;
 
     surfaceNormal = normalize((transpose(inverse(viewMatrix*transformationMatrix)) * vec4(normal, 0.0)).xyz);
     toLightVector = lightPosition - worldPosition.xyz;
