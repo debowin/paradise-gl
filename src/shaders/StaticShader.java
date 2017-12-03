@@ -3,6 +3,7 @@ package shaders;
 import entities.Camera;
 import entities.Light;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 import toolbox.Maths;
 
 public class StaticShader extends ShaderProgram {
@@ -18,6 +19,9 @@ public class StaticShader extends ShaderProgram {
     private int location_shineDamper;
     private int location_reflectivity;
     private int location_useFakeLighting;
+    private int location_skyColor;
+    private int location_fogDensity;
+    private int location_fogGradient;
 
     public StaticShader() {
         super(VERTEX_FILE, FRAGMENT_FILE);
@@ -40,6 +44,9 @@ public class StaticShader extends ShaderProgram {
         location_shineDamper = super.getUniformLocation("shineDamper");
         location_reflectivity = super.getUniformLocation("reflectivity");
         location_useFakeLighting = super.getUniformLocation("useFakeLighting");
+        location_skyColor = super.getUniformLocation("skyColor");
+        location_fogDensity = super.getUniformLocation("fogDensity");
+        location_fogGradient = super.getUniformLocation("fogGradient");
     }
 
     public void loadTransformationMatrix(Matrix4f transformation) {
@@ -67,5 +74,17 @@ public class StaticShader extends ShaderProgram {
 
     public void loadFakeLighting(boolean useFakeLighting){
         super.loadBoolean(location_useFakeLighting, useFakeLighting);
+    }
+
+    public void loadSkyColor(Vector3f skyColor){
+        super.loadVector(location_skyColor, skyColor);
+    }
+
+    public void loadFogDensity(float fogDensity){
+        super.loadFloat(location_fogDensity, fogDensity);
+    }
+
+    public void loadFogGradient(float fogGradient){
+        super.loadFloat(location_fogGradient, fogGradient);
     }
 }

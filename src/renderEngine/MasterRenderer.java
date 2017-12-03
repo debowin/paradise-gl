@@ -7,6 +7,7 @@ import models.TexturedModel;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 import shaders.StaticShader;
 import shaders.TerrainShader;
 import terrain.Terrain;
@@ -30,6 +31,10 @@ public class MasterRenderer {
     private static final float FAR_PLANE = 1000f;
     private Matrix4f projectionMatrix;
 
+    private Vector3f skyColor = new Vector3f(0, 0.5f, 0.7f);
+    private float fogDensity = 0.007f;
+    private float fogGradient = 1.5f;
+
     private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
 
     public MasterRenderer() {
@@ -48,14 +53,22 @@ public class MasterRenderer {
         prepare();
         staticShader.start();
         staticShader.loadLight(sun);
+        staticShader.loadSkyColor(skyColor);
+        staticShader.loadFogDensity(fogDensity);
+        staticShader.loadFogGradient(fogGradient);
         staticShader.loadViewMatrix(camera);
         entityRenderer.render(entities);
         staticShader.stop();
+
         terrainShader.start();
         terrainShader.loadLight(sun);
+        terrainShader.loadSkyColor(skyColor);
+        terrainShader.loadFogDensity(fogDensity);
+        terrainShader.loadFogGradient(fogGradient);
         terrainShader.loadViewMatrix(camera);
         terrainRenderer.render(terrains);
         terrainShader.stop();
+
         terrains.clear();
         entities.clear();
     }
@@ -78,7 +91,7 @@ public class MasterRenderer {
 
     public void prepare() {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
-        GL11.glClearColor(0.5f, 0, 0, 1);
+        GL11.glClearColor(skyColor.x, skyColor.y, skyColor.z, 1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
     }
 
