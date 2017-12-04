@@ -30,7 +30,7 @@ void main(){
 
     surfaceNormal = normalize((transpose(inverse(viewMatrix*transformationMatrix)) * vec4(actualNormal, 0.0)).xyz);
     toLightVector = lightPosition - worldPosition.xyz;
-    toCameraVector = (-viewMatrix * worldPosition).xyz;
+    toCameraVector = -positionRelativeToCamera.xyz;
 
     float distance = length(positionRelativeToCamera.xyz);
     visibility = clamp(exp(-pow(distance*fogDensity, fogGradient)), 0, 1);

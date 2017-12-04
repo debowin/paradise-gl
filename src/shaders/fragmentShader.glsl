@@ -31,6 +31,6 @@ void main() {
     if(textureColor.a<0.5)
         discard;
 
-    out_Color = vec4(diffuse, 1.0) * textureColor + vec4(finalSpecular, 1);
+    out_Color = vec4(diffuse, 1) * textureColor + vec4(finalSpecular, 1);
     out_Color = mix(vec4(skyColor, 1), out_Color, visibility);
 }

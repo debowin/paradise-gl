@@ -5,7 +5,6 @@ import entities.Entity;
 import entities.Light;
 import models.RawModel;
 import models.TexturedModel;
-import objConverter.ModelData;
 import objConverter.OBJFileLoader;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.util.vector.Vector3f;
@@ -30,8 +29,8 @@ public class MainGameLoop {
 
         // TERRAIN TEXTURE
         TerrainTexture backGroundTexture = new TerrainTexture(loader.loadTexture("grassy"));
-        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("mud"));
-        TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("grassFlowers"));
+        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
+        TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("pinkFlowers"));
         TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("path"));
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
 
@@ -39,12 +38,14 @@ public class MainGameLoop {
 
         Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap);
         Terrain terrain2 = new Terrain(-1, -1, loader, texturePack, blendMap);
-        // ENTITIES
 
+        // ENTITIES
         RawModel treeModel = OBJFileLoader.loadOBJModel("tree", loader);
         RawModel grassModel = OBJFileLoader.loadOBJModel("grassModel", loader);
         RawModel fernModel = OBJFileLoader.loadOBJModel("fern", loader);
         RawModel lowPolyTreeModel = OBJFileLoader.loadOBJModel("lowPolyTree", loader);
+        RawModel dragonModel = OBJFileLoader.loadOBJModel("dragon", loader);
+        RawModel bunnyModel = OBJFileLoader.loadOBJModel("bunny", loader);
 
         TexturedModel tree = new TexturedModel(treeModel, new ModelTexture(loader.loadTexture("tree")));
         TexturedModel lowPolyTree = new TexturedModel(lowPolyTreeModel, new ModelTexture(loader.loadTexture("lowPolyTree")));
@@ -56,6 +57,8 @@ public class MainGameLoop {
         flower.getTexture().setFakeLighting(true);
         TexturedModel fern = new TexturedModel(fernModel, new ModelTexture(loader.loadTexture("fern")));
         fern.getTexture().setTransparent(true);
+        TexturedModel dragon = new TexturedModel(dragonModel, new ModelTexture(loader.loadTexture("yellow")));
+        TexturedModel bunny = new TexturedModel(bunnyModel, new ModelTexture(loader.loadTexture("white")));
 
         List<Entity> entities = new ArrayList<>();
         Random random = new Random(765246);
@@ -80,6 +83,8 @@ public class MainGameLoop {
                         0, 0, 0, random.nextFloat() + 4));
             }
         }
+        entities.add(new Entity(dragon, new Vector3f(50, 0, -250), 0, 180, 0, 1));
+        entities.add(new Entity(bunny, new Vector3f(100, 0, -250), 0, 0, 0, 0.8f));
 
         Light light = new Light(new Vector3f(3000, 2000, 2000), new Vector3f(1, 1, 1));
 
@@ -88,6 +93,8 @@ public class MainGameLoop {
         MasterRenderer renderer = new MasterRenderer();
 
         while (!Display.isCloseRequested()) {
+            entities.get(entities.size()-1).rotate(0, -1, 0);
+            entities.get(entities.size()-2).rotate(0, 1, 0);
             camera.move();
 
             renderer.processTerrain(terrain);
