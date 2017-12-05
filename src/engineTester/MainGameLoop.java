@@ -37,14 +37,15 @@ public class MainGameLoop {
 
         TerrainTexturePack texturePack = new TerrainTexturePack(backGroundTexture, rTexture, gTexture, bTexture);
 
-        Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap);
-        Terrain terrain2 = new Terrain(-1, -1, loader, texturePack, blendMap);
+        Terrain terrain = new Terrain(0, -1, loader, texturePack, blendMap, "heightmap");
+        Terrain terrain2 = new Terrain(-1, -1, loader, texturePack, blendMap, "heightmap");
 
         // ENTITIES
         RawModel treeModel = OBJFileLoader.loadOBJModel("tree", loader);
         RawModel grassModel = OBJFileLoader.loadOBJModel("grassModel", loader);
         RawModel fernModel = OBJFileLoader.loadOBJModel("fern", loader);
         RawModel lowPolyTreeModel = OBJFileLoader.loadOBJModel("lowPolyTree", loader);
+        RawModel boxModel = OBJFileLoader.loadOBJModel("box", loader);
         RawModel dragonModel = OBJFileLoader.loadOBJModel("dragon", loader);
         RawModel bunnyModel = OBJFileLoader.loadOBJModel("bunny", loader);
 
@@ -60,10 +61,16 @@ public class MainGameLoop {
         fern.getTexture().setTransparent(true);
         TexturedModel dragon = new TexturedModel(dragonModel, new ModelTexture(loader.loadTexture("yellow")));
         TexturedModel bunny = new TexturedModel(bunnyModel, new ModelTexture(loader.loadTexture("white")));
+        TexturedModel box = new TexturedModel(boxModel, new ModelTexture(loader.loadTexture("box")));
 
         List<Entity> entities = new ArrayList<>();
         Random random = new Random(765246);
         for (int i = 0; i < 400; i++) {
+            if (i % 10 == 0) {
+                entities.add(new Entity(box,
+                        new Vector3f(random.nextFloat() * 800 - 400, 0, random.nextFloat() * -600),
+                        0, random.nextFloat() * 360, 0, random.nextFloat() + 1.5f));
+            }
             if (i % 7 == 0) {
                 entities.add(new Entity(grass,
                         new Vector3f(random.nextFloat() * 400 - 200, 0, random.nextFloat() * -400),
@@ -98,8 +105,6 @@ public class MainGameLoop {
         Camera camera = new Camera(player);
 
         while (!Display.isCloseRequested()) {
-            entities.get(entities.size() - 1).rotate(0, -1, 0);
-            entities.get(entities.size() - 2).rotate(0, 1, 0);
             camera.move();
             player.move();
 
