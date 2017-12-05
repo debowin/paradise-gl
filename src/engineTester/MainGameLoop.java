@@ -3,6 +3,7 @@ package engineTester;
 import entities.Camera;
 import entities.Entity;
 import entities.Light;
+import entities.Player;
 import models.RawModel;
 import models.TexturedModel;
 import objConverter.OBJFileLoader;
@@ -63,7 +64,7 @@ public class MainGameLoop {
         List<Entity> entities = new ArrayList<>();
         Random random = new Random(765246);
         for (int i = 0; i < 400; i++) {
-            if(i%7==0){
+            if (i % 7 == 0) {
                 entities.add(new Entity(grass,
                         new Vector3f(random.nextFloat() * 400 - 200, 0, random.nextFloat() * -400),
                         0, 0, 0, 1));
@@ -71,13 +72,13 @@ public class MainGameLoop {
                         new Vector3f(random.nextFloat() * 400 - 200, 0, random.nextFloat() * -400),
                         0, 0, 0, 1));
             }
-            if(i%3==0) {
+            if (i % 3 == 0) {
                 entities.add(new Entity(fern,
                         new Vector3f(random.nextFloat() * 400 - 200, 0, random.nextFloat() * -400),
-                        0, random.nextFloat()*360, 0, .9f));
+                        0, random.nextFloat() * 360, 0, .9f));
                 entities.add(new Entity(lowPolyTree,
                         new Vector3f(random.nextFloat() * 800 - 400, 0, random.nextFloat() * -600),
-                        0, random.nextFloat()*360, 0, random.nextFloat() * 0.1f + 0.6f));
+                        0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
                 entities.add(new Entity(tree,
                         new Vector3f(random.nextFloat() * 800 - 400, 0, random.nextFloat() * -600),
                         0, 0, 0, random.nextFloat() + 4));
@@ -88,15 +89,21 @@ public class MainGameLoop {
 
         Light light = new Light(new Vector3f(3000, 2000, 2000), new Vector3f(1, 1, 1));
 
-        Camera camera = new Camera();
-        camera.setPosition(new Vector3f(0, 2, 0));
         MasterRenderer renderer = new MasterRenderer();
 
-        while (!Display.isCloseRequested()) {
-            entities.get(entities.size()-1).rotate(0, -1, 0);
-            entities.get(entities.size()-2).rotate(0, 1, 0);
-            camera.move();
+        // PLAYER
+        RawModel playerModel = OBJFileLoader.loadOBJModel("cruiser", loader);
+        TexturedModel texturedModel = new TexturedModel(playerModel, new ModelTexture(loader.loadTexture("cruiser")));
+        Player player = new Player(texturedModel, new Vector3f(100, 20, -60), 0, 180, 0, 2);
+        Camera camera = new Camera(player);
 
+        while (!Display.isCloseRequested()) {
+            entities.get(entities.size() - 1).rotate(0, -1, 0);
+            entities.get(entities.size() - 2).rotate(0, 1, 0);
+            camera.move();
+            player.move();
+
+            renderer.processEntity(player);
             renderer.processTerrain(terrain);
             renderer.processTerrain(terrain2);
             for (Entity entity : entities) {

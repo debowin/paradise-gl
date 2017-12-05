@@ -1,56 +1,50 @@
 package entities;
 
-import org.lwjgl.input.Keyboard;
+import org.lwjgl.input.Mouse;
 import org.lwjgl.util.vector.Vector3f;
 
 public class Camera {
 
-    private Vector3f position = new Vector3f(0, 0, 0);
+    private Vector3f position = new Vector3f(100, 35, -50);
     private float pitch;
     private float yaw;
     private float roll;
 
-    public Camera() {
-    }
+    private float distanceFromPlayer = 50;
+    private float angleAroundPlayer = 0;
 
-    public void setPosition(Vector3f position) {
-        this.position = position;
-    }
+    private Player player;
 
-    public void setPitch(float pitch) {
-        this.pitch = pitch;
-    }
-
-    public void setYaw(float yaw) {
-        this.yaw = yaw;
-    }
-
-    public void setRoll(float roll) {
-        this.roll = roll;
+    public Camera(Player player) {
+        this.player = player;
     }
 
     public void move() {
-        float speed = 0.2f;
-        if (Keyboard.isKeyDown(Keyboard.KEY_SPACE))
-            speed *= 3;
-        if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
-            position.z -= speed;
+        checkReset();
+        calculateZoom();
+        calculatePitch();
+        calculateAngleAroundPlayer();
+        float horizontalDistanceFromPlayer = (float) Math.cos(Math.toRadians(pitch)) * distanceFromPlayer;
+        float verticalDistanceFromPlayer = (float) Math.sin(Math.toRadians(pitch)) * distanceFromPlayer;
+        calculateCameraPositionAndYaw(horizontalDistanceFromPlayer, verticalDistanceFromPlayer);
+    }
+
+    private void checkReset() {
+        if(Mouse.isButtonDown(1)){
+            angleAroundPlayer = 0;
+            pitch = 0;
+            distanceFromPlayer = 50;
         }
-        if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
-            position.z += speed;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_D)) {
-            position.x += speed;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_A)) {
-            position.x -= speed;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-            position.y += speed;
-        }
-        if (Keyboard.isKeyDown(Keyboard.KEY_LCONTROL)) {
-            position.y -= speed;
-        }
+    }
+
+    private void calculateCameraPositionAndYaw(float hDistance, float vDistance) {
+        position.y = player.getPosition().y + vDistance;
+        float theta = player.getRotY() + angleAroundPlayer;
+        float offsetX = hDistance * (float) Math.sin(Math.toRadians(theta));
+        float offsetZ = hDistance * (float) Math.cos(Math.toRadians(theta));
+        position.x = player.getPosition().x - offsetX;
+        position.z = player.getPosition().z - offsetZ;
+        yaw = 180 - theta;
     }
 
     public Vector3f getPosition() {
@@ -67,5 +61,24 @@ public class Camera {
 
     public float getRoll() {
         return roll;
+    }
+
+    private void calculateZoom() {
+        float zoomLevel = Mouse.getDWheel() * 0.1f;
+        distanceFromPlayer -= zoomLevel;
+    }
+
+    private void calculatePitch() {
+        if (Mouse.isButtonDown(0)) {
+            float pitchChange = Mouse.getDY() * 0.1f;
+            pitch -= pitchChange;
+        }
+    }
+
+    private void calculateAngleAroundPlayer() {
+        if (Mouse.isButtonDown(0)) {
+            float angleChange = Mouse.getDX() * 0.3f;
+            angleAroundPlayer -= angleChange;
+        }
     }
 }
