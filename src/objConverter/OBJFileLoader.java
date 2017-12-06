@@ -13,7 +13,7 @@ public class OBJFileLoader {
 
     private static final String RES_LOC = "res/";
 
-    public static RawModel loadOBJModel(String objFileName, Loader loader){
+    public static RawModel loadOBJModel(String objFileName, Loader loader) {
         ModelData modelData = loadOBJ(objFileName);
         return loader.loadToVAO(modelData.getVertices(),
                 modelData.getTextureCoords(), modelData.getNormals(),

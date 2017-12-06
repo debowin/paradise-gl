@@ -2,8 +2,8 @@
 
 in vec2 pass_textureCoords;
 in vec3 surfaceNormal;
-in vec3 toLightVector;
-in vec3 toCameraVector;
+in vec3 relativeLightPosition;
+in vec3 relativePosition;
 in float visibility;
 
 out vec4 out_Color;
@@ -35,12 +35,12 @@ void main() {
 
     // Diffuse & Specular Lighting
     vec3 unitNormal = normalize(surfaceNormal);
-    vec3 unitLightVector = normalize(toLightVector);
+    vec3 unitLightVector = normalize(relativeLightPosition - relativePosition);
 
     float brightness = max(dot(unitNormal, unitLightVector), 0.2);
     vec3 diffuse = brightness * lightColour;
 
-    vec3 unitCameraVector = normalize(toCameraVector);
+    vec3 unitCameraVector = normalize(-relativePosition);
     vec3 unitHalfDirection = normalize(unitLightVector + unitCameraVector);
     float specularFactor = max(dot(unitNormal, unitHalfDirection), 0);
     float dampedFactor = pow(specularFactor, shineDamper);

@@ -19,20 +19,18 @@ import java.util.Map;
 
 public class MasterRenderer {
 
-    private StaticShader staticShader = new StaticShader();
-    private EntityRenderer entityRenderer;
-
-    private TerrainRenderer terrainRenderer;
-    private TerrainShader terrainShader = new TerrainShader();
-    private List<Terrain> terrains = new ArrayList<>();
-
     private static final float FOV = 70;
     private static final float NEAR_PLANE = 0.1f;
     private static final float FAR_PLANE = 1000f;
+    private StaticShader staticShader = new StaticShader();
+    private EntityRenderer entityRenderer;
+    private TerrainRenderer terrainRenderer;
+    private TerrainShader terrainShader = new TerrainShader();
+    private List<Terrain> terrains = new ArrayList<>();
     private Matrix4f projectionMatrix;
 
     private Vector3f skyColor = new Vector3f(0, 0.5f, 0.7f);
-    private float fogDensity = 0.007f;
+    private float fogDensity = 0.005f;
     private float fogGradient = 1.5f;
 
     private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
@@ -42,6 +40,15 @@ public class MasterRenderer {
         createProjectionMatrix();
         entityRenderer = new EntityRenderer(staticShader, projectionMatrix);
         terrainRenderer = new TerrainRenderer(terrainShader, projectionMatrix);
+    }
+
+    public static void enableCulling() {
+        GL11.glEnable(GL11.GL_CULL_FACE);
+        GL11.glCullFace(GL11.GL_BACK);
+    }
+
+    public static void disableCulling() {
+        GL11.glDisable(GL11.GL_CULL_FACE);
     }
 
     public void cleanUp() {
@@ -85,7 +92,7 @@ public class MasterRenderer {
         }
     }
 
-    public void processTerrain(Terrain terrain){
+    public void processTerrain(Terrain terrain) {
         terrains.add(terrain);
     }
 
@@ -108,14 +115,5 @@ public class MasterRenderer {
         projectionMatrix.m23 = -1;
         projectionMatrix.m32 = -(2 * FAR_PLANE * NEAR_PLANE) / frustumLength;
         projectionMatrix.m33 = 0;
-    }
-
-    public static void enableCulling(){
-        GL11.glEnable(GL11.GL_CULL_FACE);
-        GL11.glCullFace(GL11.GL_BACK);
-    }
-
-    public static void disableCulling(){
-        GL11.glDisable(GL11.GL_CULL_FACE);
     }
 }

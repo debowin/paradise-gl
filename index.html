@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>water-gl by chatt086</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,138 +8,178 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-  </head>
-  <body>
-    <section class="page-header">
-      <h1 class="project-name">water-gl</h1>
-      <h2 class="project-tagline">Computer Graphics Final Project - Water Simulation</h2>
-      <a href="https://github.umn.edu/chatt086/water-gl" class="btn">View on GitHub</a>
-      <a href="https://github.umn.edu/chatt086/water-gl/zipball/master" class="btn">Download .ZIP</a>
-      <a href="https://github.umn.edu/chatt086/water-gl/tarball/master" class="btn">Download .TGZ</a>
-    </section>
+</head>
+<body>
+<section class="page-header">
+    <h1 class="project-name">water-gl</h1>
+    <h2 class="project-tagline">Computer Graphics Final Project - Water Simulation</h2>
+    <a href="https://github.umn.edu/chatt086/water-gl" class="btn">View on GitHub</a>
+    <a href="https://github.umn.edu/chatt086/water-gl/zipball/master" class="btn">Download .ZIP</a>
+    <a href="https://github.umn.edu/chatt086/water-gl/tarball/master" class="btn">Download .TGZ</a>
+</section>
 
-    <section class="main-content">
-      <h2>
-<a id="setup-instructions" class="anchor" href="#setup-instructions" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup Instructions</h2>
-<ul>
-<li>Add the JARs under lib/jars to your project's libraries.</li>
-<li>Add <code>-Djava.library.path=lib/natives/</code> to your JVM options while building.</li>
-<li>IMPORTANT - The native link libraries included are for Linux distributions.
-For other platforms, you'll need to download them separately from <a href="https://sourceforge.net/projects/java-game-lib/files/Official%20Releases/LWJGL%202.9.3/">here</a>.</li>
-</ul>
-<h2>
-<a id="showcase" class="anchor" href="#showcase" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Showcase</h2>
-<h3>
-<a id="forest-terrain" class="anchor" href="#forest-terrain" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Forest Terrain</h3>
-<p><img src="https://github.umn.edu/chatt086/water-gl/raw/master/res/forest.png" alt="Forest Terrain"></p>
-<h3>
-<a id="stanford-zoo" class="anchor" href="#stanford-zoo" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Stanford Zoo</h3>
-<p><img src="https://github.umn.edu/chatt086/water-gl/raw/master/res/stanford.png" alt="Stanford Zoo"></p>
-<h2>
-<a id="objective" class="anchor" href="#objective" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Objective</h2>
-<p>The aim of the project is to render a simulation of a scene consisting of a terrain and a water body using the modern OpenGL pipeline.</p>
-<h2>
-<a id="group-members" class="anchor" href="#group-members" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Group Members</h2>
-<ul>
-<li>Debojeet Chatterjee</li>
-<li>Ameya Gurjar</li>
-</ul>
-<h2>
-<a id="project-goals" class="anchor" href="#project-goals" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Project Goals</h2>
-<p>The goal will be to render a scene containing a terrain and a water body which is described below separately.</p>
-<h3>
-<a id="terrain-modelling" class="anchor" href="#terrain-modelling" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Terrain Modelling</h3>
-<ul>
-<li>
-<p>The terrain consists of a surface which has some foliage like trees, grass, flowers and ferns.</p>
-</li>
-<li>
-<p>It is modelled as a triangulated quad.</p>
-</li>
-<li>
-<p>Multiple texturing is used to texture the terrain which consists of a path, mud, flower patches and grass.</p>
-</li>
-<li>
-<p>The entities are loaded as OBJ files.</p>
-</li>
-</ul>
-<h3>
-<a id="water-modelling" class="anchor" href="#water-modelling" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Water Modelling</h3>
-<ul>
-<li>
-<p>The water body will basically be a simple quad made up of two triangles.</p>
-</li>
-<li>
-<p>The quad will be textured so that it looks like a water body. A combination of reflection texture and refraction texture will be used. This will make use of frame buffer objects.</p>
-</li>
-<li>
-<p>The two textures will be combined using the fresnel effect. This can be achieved by the formula
-<code>max(dot(water_normal, view_direction), 0)</code></p>
-</li>
-<li>
-<p>A higher value will result in less reflectiveness and a lower value will result in less refraction.</p>
-</li>
-<li>
-<p>The lighting position and the color of the light will be determined. A normal map will be used for the lighting calculations on the surface of the water.</p>
-</li>
-</ul>
-<h2>
-<a id="progress-description" class="anchor" href="#progress-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Progress Description</h2>
-<ul>
-<li>
-<p>We're using the Light-Weight Java Game Library for this project to try out a different style of OpenGL programming and also,
-since using Java allows us to package and structure our code more easily in an Object Oriented manner.</p>
-</li>
-<li>
-<p>So far we have managed to create a terrain that supports transparent textures to render ferns, flowers and grass clumps
-to let us see through areas where the alpha of the texture is less than 0.5</p>
-</li>
-<li>
-<p>We're also mixing between the sky colour and the terrain as well as model texture color to haze distant models and terrains exponentially
-using the equation <code>visibility = e^(-(distance*fogDensity)^fogGradient)</code>,
-where Fog Density controls how thick the fog is while Gradient controls how smoothly the scene hazes into the distance.</p>
-</li>
-<li>
-<p>In addition, we are multi-texturing the terrain using a blend map to blend between 4 different textures based on the R, G, B components.</p>
-</li>
-<li>
-<p>We're also able to randomly generate and place a large amount of foliage on the map for which we're using an optimised approach to load
-a multitude of instanced entities by loading their corresponding textures only once before rendering them.</p>
-</li>
-<li>
-<p>We have provided keyboard functions to navigate the world using W, A, S, D, LShift, LCtrl. Also, holding Space boosts the speed of
-camera movement by a factor of 3.</p>
-</li>
-</ul>
-<h2>
-<a id="challenges-and-future-work" class="anchor" href="#challenges-and-future-work" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CHALLENGES AND FUTURE WORK</h2>
-<ul>
-<li>
-<p>Randomly generated foliage shows up on paths which seems unrealistic.
-We could solve this by reading in the Blend Map and checking if the position
-of the foliage lies on the path and if so, discarding it.</p>
-</li>
-<li>
-<p>We'd also like to have contours such as hills and valleys on the terrain for
-which we'll need to use a Height Map.</p>
-</li>
-<li>
-<p>For water modelling, we'll need to make the refraction texture only render the
-scene below the water surface and the reflection texture only render the scene above the water surface.</p>
-</li>
-<li>
-<p>We'll need to add a distortion effect to the water surface to make it look more realistic than still water.</p>
-</li>
-</ul>
+<section class="main-content">
+    <h2>
+        <a id="setup-instructions" class="anchor" href="#setup-instructions" aria-hidden="true"><span aria-hidden="true"
+                                                                                                      class="octicon octicon-link"></span></a>Setup
+        Instructions</h2>
+    <ul>
+        <li>Add the JARs under lib/jars to your project's libraries.</li>
+        <li>Add <code>-Djava.library.path=lib/natives/</code> to your JVM options while building.</li>
+        <li>IMPORTANT - The native link libraries included are for Linux distributions.
+            For other platforms, you'll need to download them separately from <a
+                    href="https://sourceforge.net/projects/java-game-lib/files/Official%20Releases/LWJGL%202.9.3/">here</a>.
+        </li>
+    </ul>
+    <h2>
+        <a id="showcase" class="anchor" href="#showcase" aria-hidden="true"><span aria-hidden="true"
+                                                                                  class="octicon octicon-link"></span></a>Showcase
+    </h2>
+    <h3>
+        <a id="forest-terrain" class="anchor" href="#forest-terrain" aria-hidden="true"><span aria-hidden="true"
+                                                                                              class="octicon octicon-link"></span></a>Forest
+        Terrain</h3>
+    <p><img src="https://github.umn.edu/chatt086/water-gl/raw/master/res/forest.png" alt="Forest Terrain"></p>
+    <h3>
+        <a id="stanford-zoo" class="anchor" href="#stanford-zoo" aria-hidden="true"><span aria-hidden="true"
+                                                                                          class="octicon octicon-link"></span></a>Stanford
+        Zoo</h3>
+    <p><img src="https://github.umn.edu/chatt086/water-gl/raw/master/res/stanford.png" alt="Stanford Zoo"></p>
+    <h2>
+        <a id="objective" class="anchor" href="#objective" aria-hidden="true"><span aria-hidden="true"
+                                                                                    class="octicon octicon-link"></span></a>Objective
+    </h2>
+    <p>The aim of the project is to render a simulation of a scene consisting of a terrain and a water body using the
+        modern OpenGL pipeline.</p>
+    <h2>
+        <a id="group-members" class="anchor" href="#group-members" aria-hidden="true"><span aria-hidden="true"
+                                                                                            class="octicon octicon-link"></span></a>Group
+        Members</h2>
+    <ul>
+        <li>Debojeet Chatterjee</li>
+        <li>Ameya Gurjar</li>
+    </ul>
+    <h2>
+        <a id="project-goals" class="anchor" href="#project-goals" aria-hidden="true"><span aria-hidden="true"
+                                                                                            class="octicon octicon-link"></span></a>Project
+        Goals</h2>
+    <p>The goal will be to render a scene containing a terrain and a water body which is described below separately.</p>
+    <h3>
+        <a id="terrain-modelling" class="anchor" href="#terrain-modelling" aria-hidden="true"><span aria-hidden="true"
+                                                                                                    class="octicon octicon-link"></span></a>Terrain
+        Modelling</h3>
+    <ul>
+        <li>
+            <p>The terrain consists of a surface which has some foliage like trees, grass, flowers and ferns.</p>
+        </li>
+        <li>
+            <p>It is modelled as a triangulated quad.</p>
+        </li>
+        <li>
+            <p>Multiple texturing is used to texture the terrain which consists of a path, mud, flower patches and
+                grass.</p>
+        </li>
+        <li>
+            <p>The entities are loaded as OBJ files.</p>
+        </li>
+    </ul>
+    <h3>
+        <a id="water-modelling" class="anchor" href="#water-modelling" aria-hidden="true"><span aria-hidden="true"
+                                                                                                class="octicon octicon-link"></span></a>Water
+        Modelling</h3>
+    <ul>
+        <li>
+            <p>The water body will basically be a simple quad made up of two triangles.</p>
+        </li>
+        <li>
+            <p>The quad will be textured so that it looks like a water body. A combination of reflection texture and
+                refraction texture will be used. This will make use of frame buffer objects.</p>
+        </li>
+        <li>
+            <p>The two textures will be combined using the fresnel effect. This can be achieved by the formula
+                <code>max(dot(water_normal, view_direction), 0)</code></p>
+        </li>
+        <li>
+            <p>A higher value will result in less reflectiveness and a lower value will result in less refraction.</p>
+        </li>
+        <li>
+            <p>The lighting position and the color of the light will be determined. A normal map will be used for the
+                lighting calculations on the surface of the water.</p>
+        </li>
+    </ul>
+    <h2>
+        <a id="progress-description" class="anchor" href="#progress-description" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>Progress Description</h2>
+    <ul>
+        <li>
+            <p>We're using the Light-Weight Java Game Library for this project to try out a different style of OpenGL
+                programming and also,
+                since using Java allows us to package and structure our code more easily in an Object Oriented
+                manner.</p>
+        </li>
+        <li>
+            <p>So far we have managed to create a terrain that supports transparent textures to render ferns, flowers
+                and grass clumps
+                to let us see through areas where the alpha of the texture is less than 0.5</p>
+        </li>
+        <li>
+            <p>We're also mixing between the sky colour and the terrain as well as model texture color to haze distant
+                models and terrains exponentially
+                using the equation <code>visibility = e^(-(distance*fogDensity)^fogGradient)</code>,
+                where Fog Density controls how thick the fog is while Gradient controls how smoothly the scene hazes
+                into the distance.</p>
+        </li>
+        <li>
+            <p>In addition, we are multi-texturing the terrain using a blend map to blend between 4 different textures
+                based on the R, G, B components.</p>
+        </li>
+        <li>
+            <p>We're also able to randomly generate and place a large amount of foliage on the map for which we're using
+                an optimised approach to load
+                a multitude of instanced entities by loading their corresponding textures only once before rendering
+                them.</p>
+        </li>
+        <li>
+            <p>We have provided keyboard functions to navigate the world using W, A, S, D, LShift, LCtrl. Also, holding
+                Space boosts the speed of
+                camera movement by a factor of 3.</p>
+        </li>
+    </ul>
+    <h2>
+        <a id="challenges-and-future-work" class="anchor" href="#challenges-and-future-work" aria-hidden="true"><span
+                aria-hidden="true" class="octicon octicon-link"></span></a>CHALLENGES AND FUTURE WORK</h2>
+    <ul>
+        <li>
+            <p>Randomly generated foliage shows up on paths which seems unrealistic.
+                We could solve this by reading in the Blend Map and checking if the position
+                of the foliage lies on the path and if so, discarding it.</p>
+        </li>
+        <li>
+            <p>We'd also like to have contours such as hills and valleys on the terrain for
+                which we'll need to use a Height Map.</p>
+        </li>
+        <li>
+            <p>For water modelling, we'll need to make the refraction texture only render the
+                scene below the water surface and the reflection texture only render the scene above the water
+                surface.</p>
+        </li>
+        <li>
+            <p>We'll need to add a distortion effect to the water surface to make it look more realistic than still
+                water.</p>
+        </li>
+    </ul>
 
-      <footer class="site-footer">
-        <span class="site-footer-owner"><a href="https://github.umn.edu/chatt086/water-gl">water-gl</a> is maintained by <a href="https://github.umn.edu/chatt086">chatt086</a>.</span>
+    <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.umn.edu/chatt086/water-gl">water-gl</a> is maintained by <a
+                href="https://github.umn.edu/chatt086">chatt086</a>.</span>
 
-        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
-      </footer>
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a
+                href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a
+                href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+    </footer>
 
-    </section>
+</section>
 
-  
-  </body>
+
+</body>
 </html>

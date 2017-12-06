@@ -6,7 +6,7 @@ import org.lwjgl.util.vector.Vector3f;
 public class Camera {
 
     private Vector3f position = new Vector3f(100, 35, -50);
-    private float pitch;
+    private float pitch = 10;
     private float yaw;
     private float roll;
 
@@ -30,9 +30,9 @@ public class Camera {
     }
 
     private void checkReset() {
-        if(Mouse.isButtonDown(1)){
+        if (Mouse.isButtonDown(1)) {
             angleAroundPlayer = 0;
-            pitch = 0;
+            pitch = 10;
             distanceFromPlayer = 50;
         }
     }

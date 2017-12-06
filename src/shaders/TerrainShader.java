@@ -56,7 +56,7 @@ public class TerrainShader extends ShaderProgram {
         location_blendMap = super.getUniformLocation("blendMap");
     }
 
-    public void connectTextureUnits(){
+    public void connectTextureUnits() {
         super.loadInt(location_backgroundTexture, 0);
         super.loadInt(location_rTexture, 1);
         super.loadInt(location_gTexture, 2);
@@ -87,15 +87,15 @@ public class TerrainShader extends ShaderProgram {
         super.loadFloat(location_reflectivity, reflectivity);
     }
 
-    public void loadSkyColor(Vector3f skyColor){
+    public void loadSkyColor(Vector3f skyColor) {
         super.loadVector(location_skyColor, skyColor);
     }
 
-    public void loadFogDensity(float fogDensity){
+    public void loadFogDensity(float fogDensity) {
         super.loadFloat(location_fogDensity, fogDensity);
     }
 
-    public void loadFogGradient(float fogGradient){
+    public void loadFogGradient(float fogGradient) {
         super.loadFloat(location_fogGradient, fogGradient);
     }
 }

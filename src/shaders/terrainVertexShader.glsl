@@ -6,8 +6,8 @@ in vec3 normal;
 
 out vec2 pass_textureCoords;
 out vec3 surfaceNormal;
-out vec3 toLightVector;
-out vec3 toCameraVector;
+out vec3 relativeLightPosition;
+out vec3 relativePosition;
 out float visibility;
 
 uniform mat4 transformationMatrix;
@@ -21,11 +21,11 @@ void main(){
     vec4 worldPosition = transformationMatrix * vec4(position, 1);
     vec4 positionRelativeToCamera = viewMatrix * worldPosition;
     gl_Position = projectionMatrix * positionRelativeToCamera;
+    relativePosition = positionRelativeToCamera.xyz;
     pass_textureCoords = textureCoords;
 
     surfaceNormal = normalize((transpose(inverse(viewMatrix*transformationMatrix)) * vec4(normal, 0.0)).xyz);
-    toLightVector = lightPosition - worldPosition.xyz;
-    toCameraVector = (-viewMatrix * worldPosition).xyz;
+    relativeLightPosition = (viewMatrix * vec4(lightPosition, 1)).xyz;
 
     float distance = length(positionRelativeToCamera.xyz);
     visibility = clamp(exp(-pow(distance*fogDensity, fogGradient)), 0, 1);
