@@ -81,8 +81,6 @@ public class MainGameLoop {
             if (i % 2 == 0) {
                 entities.add(new Entity(fern, random.nextInt(4), Maths.randomXYZ(random, (int) Terrain.getSIZE() * 2, (int) Terrain.getSIZE() * 2, terrains),
                         0, random.nextFloat() * 360, 0, .9f));
-            }
-            if (i % 5 == 0) {
                 entities.add(new Entity(lowPolyTree, random.nextInt(4), Maths.randomXYZ(random, (int) Terrain.getSIZE() * 2, (int) Terrain.getSIZE() * 2, terrains),
                         0, random.nextFloat() * 360, 0, random.nextFloat() * 0.1f + 0.6f));
                 entities.add(new Entity(tree, Maths.randomXYZ(random, (int) Terrain.getSIZE() * 2, (int) Terrain.getSIZE() * 2, terrains),
@@ -90,7 +88,7 @@ public class MainGameLoop {
                 entities.add(new Entity(pine, Maths.randomXYZ(random, (int) Terrain.getSIZE() * 2, (int) Terrain.getSIZE() * 2, terrains),
                         0, 0, 0, random.nextFloat() + 0.6f));
             }
-            if(i % 100 == 0) {
+            if(i % 250 == 0) {
                 Lamp lampEntity = new Lamp(lamp, new Vector3f(random.nextFloat() * 5, random.nextFloat() * 5, random.nextFloat() * 5),
                         Maths.randomXYZ(random, (int) Terrain.getSIZE() * 2, (int) Terrain.getSIZE() * 2, terrains),
                         0, random.nextFloat() * 360, 0, 1);
@@ -103,7 +101,7 @@ public class MainGameLoop {
         entities.add(new Entity(bunny, Maths.randomXYZ(random, (int) Terrain.getSIZE() * 2, (int) Terrain.getSIZE() * 2, terrains),
                 0, 0, 0, 0.8f));
 
-        MasterRenderer renderer = new MasterRenderer();
+        MasterRenderer renderer = new MasterRenderer(loader);
 
         // PLAYER
         RawModel playerModel = OBJFileLoader.loadOBJModel("cruiser", loader);

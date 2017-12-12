@@ -10,6 +10,7 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import shaders.StaticShader;
 import shaders.TerrainShader;
+import skybox.SkyboxRenderer;
 import terrains.Terrain;
 
 import java.util.ArrayList;
@@ -29,17 +30,20 @@ public class MasterRenderer {
     private List<Terrain> terrains = new ArrayList<>();
     private Matrix4f projectionMatrix;
 
-    private Vector3f skyColor = new Vector3f(0, 0.5f, 0.7f);
+    private Vector3f skyColor = new Vector3f(0.5444f, 0.62f, 0.69f);
     private float fogDensity = 0.005f;
     private float fogGradient = 1.5f;
 
     private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
 
-    public MasterRenderer() {
+    private SkyboxRenderer skyboxRenderer;
+
+    public MasterRenderer(Loader loader) {
         enableCulling();
         createProjectionMatrix();
         entityRenderer = new EntityRenderer(staticShader, projectionMatrix);
         terrainRenderer = new TerrainRenderer(terrainShader, projectionMatrix);
+        skyboxRenderer = new SkyboxRenderer(loader, projectionMatrix);
     }
 
     public static void enableCulling() {
@@ -76,6 +80,7 @@ public class MasterRenderer {
         terrainRenderer.render(terrains);
         terrainShader.stop();
 
+        skyboxRenderer.render(camera);
         terrains.clear();
         entities.clear();
     }

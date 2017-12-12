@@ -19,7 +19,7 @@ public abstract class ShaderProgram {
     private int vertexShaderID;
     private int fragmentShaderID;
 
-    ShaderProgram(String vertexFile, String fragmentFile) {
+    protected ShaderProgram(String vertexFile, String fragmentFile) {
         vertexShaderID = loadShader(vertexFile, GL20.GL_VERTEX_SHADER);
         fragmentShaderID = loadShader(fragmentFile, GL20.GL_FRAGMENT_SHADER);
         programID = GL20.glCreateProgram();
@@ -57,7 +57,7 @@ public abstract class ShaderProgram {
 
     protected abstract void bindAttributes();
 
-    void bindAttribute(int attribute, String variableName) {
+    protected void bindAttribute(int attribute, String variableName) {
         GL20.glBindAttribLocation(programID, attribute, variableName);
     }
 
@@ -78,7 +78,7 @@ public abstract class ShaderProgram {
         GL20.glDeleteProgram(programID);
     }
 
-    int getUniformLocation(String uniformName) {
+    protected int getUniformLocation(String uniformName) {
         return GL20.glGetUniformLocation(programID, uniformName);
     }
 
@@ -104,7 +104,7 @@ public abstract class ShaderProgram {
         GL20.glUniform1f(location, value ? 1.f : 0.f);
     }
 
-    void loadMatrix(int location, Matrix4f matrix) {
+    protected void loadMatrix(int location, Matrix4f matrix) {
         matrix.store(matrixBuffer);
         matrixBuffer.flip();
         GL20.glUniformMatrix4(location, false, matrixBuffer);
