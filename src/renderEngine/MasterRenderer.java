@@ -56,10 +56,10 @@ public class MasterRenderer {
         terrainShader.cleanUp();
     }
 
-    public void render(Light sun, Camera camera) {
+    public void render(List<Light> lights, Camera camera) {
         prepare();
         staticShader.start();
-        staticShader.loadLight(sun);
+        staticShader.loadLights(lights);
         staticShader.loadSkyColor(skyColor);
         staticShader.loadFogDensity(fogDensity);
         staticShader.loadFogGradient(fogGradient);
@@ -68,7 +68,7 @@ public class MasterRenderer {
         staticShader.stop();
 
         terrainShader.start();
-        terrainShader.loadLight(sun);
+        terrainShader.loadLights(lights);
         terrainShader.loadSkyColor(skyColor);
         terrainShader.loadFogDensity(fogDensity);
         terrainShader.loadFogGradient(fogGradient);

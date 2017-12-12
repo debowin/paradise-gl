@@ -1,9 +1,6 @@
 package engineTester;
 
-import entities.Camera;
-import entities.Entity;
-import entities.Light;
-import entities.Player;
+import entities.*;
 import models.RawModel;
 import models.TexturedModel;
 import objConverter.OBJFileLoader;
@@ -30,8 +27,8 @@ public class MainGameLoop {
         Loader loader = new Loader();
 
         // TERRAIN TEXTURE
-        TerrainTexture backGroundTexture = new TerrainTexture(loader.loadTexture("grassy"));
-        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("dirt"));
+        TerrainTexture backGroundTexture = new TerrainTexture(loader.loadTexture("grassy2"));
+        TerrainTexture rTexture = new TerrainTexture(loader.loadTexture("mud"));
         TerrainTexture gTexture = new TerrainTexture(loader.loadTexture("pinkFlowers"));
         TerrainTexture bTexture = new TerrainTexture(loader.loadTexture("path"));
         TerrainTexture blendMap = new TerrainTexture(loader.loadTexture("blendMap"));
@@ -52,6 +49,7 @@ public class MainGameLoop {
         RawModel boxModel = OBJFileLoader.loadOBJModel("box", loader);
         RawModel dragonModel = OBJFileLoader.loadOBJModel("dragon", loader);
         RawModel bunnyModel = OBJFileLoader.loadOBJModel("bunny", loader);
+        RawModel lampModel = OBJFileLoader.loadOBJModel("lamp", loader);
 
         TexturedModel tree = new TexturedModel(treeModel, new ModelTexture(loader.loadTexture("tree")));
         TexturedModel pine = new TexturedModel(pineModel, new ModelTexture(loader.loadTexture("pine")));
@@ -66,6 +64,11 @@ public class MainGameLoop {
         TexturedModel dragon = new TexturedModel(dragonModel, new ModelTexture(loader.loadTexture("yellow")));
         TexturedModel bunny = new TexturedModel(bunnyModel, new ModelTexture(loader.loadTexture("white")));
         TexturedModel box = new TexturedModel(boxModel, new ModelTexture(loader.loadTexture("box")));
+        TexturedModel lamp = new TexturedModel(lampModel, new ModelTexture(loader.loadTexture("lamp")));
+        lamp.getTexture().setFakeLighting(true);
+
+        List<Light> lights = new ArrayList<>();
+        lights.add(new Light(new Vector3f(0, 1000, -7000), new Vector3f(0.7f, 0.7f, 0.7f)));
 
         List<Entity> entities = new ArrayList<>();
         Random random = new Random();
@@ -87,13 +90,18 @@ public class MainGameLoop {
                 entities.add(new Entity(pine, Maths.randomXYZ(random, (int) Terrain.getSIZE() * 2, (int) Terrain.getSIZE() * 2, terrains),
                         0, 0, 0, random.nextFloat() + 0.6f));
             }
+            if(i % 100 == 0) {
+                Lamp lampEntity = new Lamp(lamp, new Vector3f(random.nextFloat() * 5, random.nextFloat() * 5, random.nextFloat() * 5),
+                        Maths.randomXYZ(random, (int) Terrain.getSIZE() * 2, (int) Terrain.getSIZE() * 2, terrains),
+                        0, random.nextFloat() * 360, 0, 1);
+                entities.add(lampEntity);
+                lights.add(lampEntity.getLight());
+            }
         }
         entities.add(new Entity(dragon, Maths.randomXYZ(random, (int) Terrain.getSIZE() * 2, (int) Terrain.getSIZE() * 2, terrains),
                 0, 180, 0, 1));
         entities.add(new Entity(bunny, Maths.randomXYZ(random, (int) Terrain.getSIZE() * 2, (int) Terrain.getSIZE() * 2, terrains),
                 0, 0, 0, 0.8f));
-
-        Light light = new Light(new Vector3f(3000, 2000, 2000), new Vector3f(1, 1, 1));
 
         MasterRenderer renderer = new MasterRenderer();
 
@@ -112,7 +120,7 @@ public class MainGameLoop {
             for (Entity entity : entities) {
                 renderer.processEntity(entity);
             }
-            renderer.render(light, camera);
+            renderer.render(lights, camera);
             DisplayManager.updateDisplay();
         }
 
