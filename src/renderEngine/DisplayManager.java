@@ -30,6 +30,9 @@ public class DisplayManager {
 
         GL11.glViewport(0, 0, WIDTH, HEIGHT);
         lastFrameTime = getCurrentTime();
+        System.out.println("Vendor: " + GL11.glGetString(GL11.GL_VENDOR));
+        System.out.println("Renderer: " + GL11.glGetString(GL11.GL_RENDERER));
+        System.out.println("Version: " + GL11.glGetString(GL11.GL_VERSION));
     }
 
     public static void updateDisplay() {

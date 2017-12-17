@@ -12,7 +12,7 @@ import renderEngine.Loader;
 import static org.lwjgl.opengl.GL13.GL_TEXTURE_CUBE_MAP;
 
 public class SkyboxRenderer {
-    private static final float SIZE = 500f;
+    private static final float SIZE = 600f;
 
     private static final float[] VERTICES = {
             -SIZE, SIZE, -SIZE,

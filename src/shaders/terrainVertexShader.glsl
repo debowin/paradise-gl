@@ -18,8 +18,13 @@ uniform vec3 lightPosition[MAX_LIGHTS];
 uniform float fogDensity;
 uniform float fogGradient;
 
+uniform vec4 plane;
+
 void main(){
     vec4 worldPosition = transformationMatrix * vec4(position, 1);
+
+    gl_ClipDistance[0] = dot(worldPosition, plane);
+
     vec4 positionRelativeToCamera = viewMatrix * worldPosition;
     gl_Position = projectionMatrix * positionRelativeToCamera;
     relativePosition = positionRelativeToCamera.xyz;

@@ -48,9 +48,6 @@ void main() {
         float attenuationFactor = lightAttenuation[i].x
                                 + lightAttenuation[i].y * distanceToLight
                                 + lightAttenuation[i].z * distanceToLight * distanceToLight;
-        if(attenuationFactor > 10)
-            // if the light is too far away
-            continue;
         vec3 unitLightVector = normalize(relativeLightPosition[i] - relativePosition);
         float brightness = max(dot(unitNormal, unitLightVector), 0);
         vec3 unitHalfDirection = normalize(unitLightVector + unitCameraVector);

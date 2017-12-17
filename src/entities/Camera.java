@@ -29,6 +29,10 @@ public class Camera {
         calculateCameraPositionAndYaw(horizontalDistanceFromPlayer, verticalDistanceFromPlayer);
     }
 
+    public void invertPitch() {
+        pitch = -pitch;
+    }
+
     private void checkReset() {
         if (Mouse.isButtonDown(1)) {
             angleAroundPlayer = 0;

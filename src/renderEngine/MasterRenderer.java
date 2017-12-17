@@ -6,8 +6,10 @@ import entities.Light;
 import models.TexturedModel;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL32;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
+import org.lwjgl.util.vector.Vector4f;
 import shaders.StaticShader;
 import shaders.TerrainShader;
 import skybox.SkyboxRenderer;
@@ -31,8 +33,8 @@ public class MasterRenderer {
     private Matrix4f projectionMatrix;
 
     private Vector3f skyColor = new Vector3f(0.5444f, 0.62f, 0.69f);
-    private float fogDensity = 0.005f;
-    private float fogGradient = 1.5f;
+    private float fogDensity = 0.0035f;
+    private float fogGradient = 5f;
 
     private Map<TexturedModel, List<Entity>> entities = new HashMap<>();
 
@@ -60,9 +62,14 @@ public class MasterRenderer {
         terrainShader.cleanUp();
     }
 
-    public void render(List<Light> lights, Camera camera) {
+    public Matrix4f getProjectionMatrix() {
+        return projectionMatrix;
+    }
+
+    public void render(List<Light> lights, Camera camera, Vector4f clipPlane) {
         prepare();
         staticShader.start();
+        staticShader.loadClipPlane(clipPlane);
         staticShader.loadLights(lights);
         staticShader.loadSkyColor(skyColor);
         staticShader.loadFogDensity(fogDensity);
@@ -72,6 +79,7 @@ public class MasterRenderer {
         staticShader.stop();
 
         terrainShader.start();
+        terrainShader.loadClipPlane(clipPlane);
         terrainShader.loadLights(lights);
         terrainShader.loadSkyColor(skyColor);
         terrainShader.loadFogDensity(fogDensity);
@@ -85,7 +93,17 @@ public class MasterRenderer {
         entities.clear();
     }
 
-    public void processEntity(Entity entity) {
+    public void renderScene(List<Entity> entities, Terrain[][] terrains,
+                            List<Light> lights, Camera camera, Vector4f clipPlane) {
+        for (int i = 0; i < 1; i++)
+            processTerrain(terrains[i / 2][i % 2]);
+        for (Entity entity : entities) {
+            processEntity(entity);
+        }
+        render(lights, camera, clipPlane);
+    }
+
+    private void processEntity(Entity entity) {
         TexturedModel entityModel = entity.getModel();
         List<Entity> batch = entities.get(entityModel);
         if (batch != null) {
@@ -97,11 +115,11 @@ public class MasterRenderer {
         }
     }
 
-    public void processTerrain(Terrain terrain) {
+    private void processTerrain(Terrain terrain) {
         terrains.add(terrain);
     }
 
-    public void prepare() {
+    private void prepare() {
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClearColor(skyColor.x, skyColor.y, skyColor.z, 1);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT);
