@@ -74,7 +74,7 @@ public class SkyboxRenderer {
         shader.stop();
     }
 
-    public void render(Camera camera){
+    public void render(Camera camera) {
         shader.start();
         shader.loadViewMatrix(camera);
         GL30.glBindVertexArray(cube.getVaoID());

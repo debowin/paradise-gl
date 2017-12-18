@@ -6,7 +6,6 @@ import entities.Light;
 import models.TexturedModel;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL32;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
 import org.lwjgl.util.vector.Vector4f;
@@ -55,6 +54,14 @@ public class MasterRenderer {
 
     public static void disableCulling() {
         GL11.glDisable(GL11.GL_CULL_FACE);
+    }
+
+    public static float getNearPlane() {
+        return NEAR_PLANE;
+    }
+
+    public static float getFarPlane() {
+        return FAR_PLANE;
     }
 
     public void cleanUp() {
