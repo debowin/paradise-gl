@@ -126,7 +126,7 @@ public class MainGameLoop {
 
         while (!Display.isCloseRequested()) {
             camera.move();
-            player.move(terrains);
+            player.move(terrains, waterRenderer);
 
             // check if F is pressed
             while (Keyboard.next()) {

@@ -12,10 +12,10 @@ For other platforms, you'll need to download them separately from [here](https:/
 ##### Nature's Beauty
 ![showcase](snaps/showcase.png)
 
-##### Fake Lighting(Lamp) & Transparent Textures(Pine, Fern)
+##### Fake Lighting(Lamp) & Transparent Textures (Pine, Fern)
 ![fake_lighting](snaps/fake_lighting.png)
 
-##### Fogging, Skybox, Multi-Textured Terrain, Texture Atlases(Bob, Fern)
+##### Fogging, Skybox, Multi-Textured Terrain, Texture Atlases (Bob, Fern)
 ![fogging_skybox](snaps/fogging_skybox.png)
 
 ##### Water Reflections - Fresnel Effect
@@ -26,6 +26,21 @@ For other platforms, you'll need to download them separately from [here](https:/
 
 ## SIMULATION VIDEO
 TBA
+
+## CONTROLS
+
+| Input | Action |
+|:----|--------:|
+| W | Move Forward |
+| S | Move Backward |
+| A | Turn Left |
+| D | Turn Right |
+| Q | Move Upward |
+| E | Move Downward |
+| Space | x3 Boost Move Speed |
+| Mouse Wheel | Zoom In/Out |
+| Mouse Left Click & Drag | Rotate Camera |
+| Mouse Right Click | Restore Camera |
 
 ## Objective
 The aim of the project is to render a simulation of a scene consisting of a terrain with a water body using the modern OpenGL pipeline.
