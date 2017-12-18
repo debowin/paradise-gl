@@ -1,5 +1,5 @@
 # water-gl
-Computer Graphics Final Project - Water Simulation.
+Computer Graphics Final Project - Water Simulation in Nature.
 
 ## Setup Instructions
 * Add the JARs under lib/jars to your project's libraries.
@@ -7,16 +7,28 @@ Computer Graphics Final Project - Water Simulation.
 * IMPORTANT - The native link libraries included are for Linux distributions.
 For other platforms, you'll need to download them separately from [here](https://sourceforge.net/projects/java-game-lib/files/Official%20Releases/LWJGL%202.9.3/).
 
-## Showcase
+## Snapshots
 
-### Forest Terrain
-![Forest Terrain](res/forest.png)
+##### Nature's Beauty
+![showcase](snaps/showcase.png)
 
-### Stanford Zoo
-![Stanford Zoo](res/stanford.png)
+##### Fake Lighting(Lamp) & Transparent Textures(Pine, Fern)
+![fake_lighting](snaps/fake_lighting.png)
+
+##### Fogging, Skybox, Multi-Textured Terrain, Texture Atlases(Bob, Fern)
+![fogging_skybox](snaps/fogging_skybox.png)
+
+##### Water Reflections - Fresnel Effect
+![reflections](snaps/reflections.png)
+
+##### Water Refractions - Fresnel Effect
+![refractions](snaps/refractions.png)
+
+## SIMULATION VIDEO
+TBA
 
 ## Objective
-The aim of the project is to render a simulation of a scene consisting of a terrain and a water body using the modern OpenGL pipeline.
+The aim of the project is to render a simulation of a scene consisting of a terrain with a water body using the modern OpenGL pipeline.
 
 ## Group Members
 * Debojeet Chatterjee
@@ -69,16 +81,14 @@ a multitude of instanced entities by loading their corresponding textures only o
 * We have provided keyboard functions to navigate the world using W, A, S, D, LShift, LCtrl. Also, holding Space boosts the speed of 
 camera movement by a factor of 3.
 
-## CHALLENGES AND FUTURE WORK
+## FUTURE WORK
 
-* Randomly generated foliage shows up on paths which seems unrealistic. 
-We could solve this by reading in the Blend Map and checking if the position
-of the foliage lies on the path and if so, discarding it.
+* Audio Effects.
 
-* We'd also like to have contours such as hills and valleys on the terrain for 
-which we'll need to use a Height Map.
+* Entity Collision with Player.
 
-* For water modelling, we'll need to make the refraction texture only render the
-scene below the water surface and the reflection texture only render the scene above the water surface.
- 
-* We'll need to add a distortion effect to the water surface to make it look more realistic than still water.
+* Particle Effects for flowing water, fountains, waterfalls and other natural phenomenon.
+
+* Deferred Rendering could let us include a lot more lamps and let us have a beautiful Night scene.
+
+* Shadow Maps and Entity Normal Maps.
