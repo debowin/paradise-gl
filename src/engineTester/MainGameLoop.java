@@ -29,6 +29,9 @@ import java.util.Random;
 
 public class MainGameLoop {
 
+    public static int TERRAIN_TILES_Z = 1;
+    public static int TERRAIN_TILES_X = 1;
+
     public static void main(String[] args) {
 
         DisplayManager.createDisplay();
@@ -43,8 +46,6 @@ public class MainGameLoop {
 
         TerrainTexturePack texturePack = new TerrainTexturePack(backGroundTexture, rTexture, gTexture, bTexture);
 
-        int TERRAIN_TILES_Z = 1;
-        int TERRAIN_TILES_X = 1;
         Terrain[][] terrains = new Terrain[TERRAIN_TILES_X][TERRAIN_TILES_Z];
         // define the array of TERRAIN_TILES_X * TERRAIN_TILES_Z terrain tiles.
         terrains[0][0] = new Terrain(0, -1, loader, texturePack, blendMap, "heightmapWater");
@@ -83,7 +84,7 @@ public class MainGameLoop {
 
         // LIGHTS
         List<Light> lights = new ArrayList<>();
-        Light sun = new Light(new Vector3f(0, 1000, -7000), new Vector3f(0.7f, 0.7f, 0.7f));
+        Light sun = new Light(new Vector3f(0, 1000, -7000), new Vector3f(1.f, 1.f, 1.f));
         lights.add(sun);
 
         // ENTITIES
@@ -106,7 +107,7 @@ public class MainGameLoop {
                 if (!waterRenderer.isUnderWater(position))
                     entities.add(new Entity(pine, position, 0, 0, 0, random.nextFloat() + 0.6f));
             }
-            if (i % 250 == 0) {
+            if (i % 100 == 0) {
                 position = Maths.randomXYZ(random, (int) Terrain.getSIZE() * TERRAIN_TILES_X, (int) Terrain.getSIZE() * TERRAIN_TILES_Z, terrains);
                 if (waterRenderer.isUnderWater(position))
                     continue;

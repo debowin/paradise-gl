@@ -23,7 +23,7 @@ public class MasterRenderer {
 
     private static final float FOV = 70;
     private static final float NEAR_PLANE = 0.1f;
-    private static final float FAR_PLANE = 1000f;
+    private static final float FAR_PLANE = 1500f;
     private StaticShader staticShader = new StaticShader();
     private EntityRenderer entityRenderer;
     private TerrainRenderer terrainRenderer;

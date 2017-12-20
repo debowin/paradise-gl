@@ -1,5 +1,6 @@
 package entities;
 
+import engineTester.MainGameLoop;
 import models.TexturedModel;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector3f;
@@ -12,6 +13,7 @@ public class Player extends Entity {
     private static final float RUN_SPEED = 20;
     private static final float VTOL_SPEED = 10;
     private static final float TURN_SPEED = 120;
+    private static final int MARGIN = 5;
 
     private float currentSpeed = 0;
     private float currentTurnSpeed = 0;
@@ -31,13 +33,23 @@ public class Player extends Entity {
         float dx = distance * (float) Math.sin(Math.toRadians(super.getRotY()));
         float dy = currentVTOLSpeed * DisplayManager.getFrameTimeSeconds();
         float dz = distance * (float) Math.cos(Math.toRadians(super.getRotY()));
+        if (super.getPosition().x + dx < MARGIN ||
+                (super.getPosition().x + dx) > (Terrain.getSIZE() * MainGameLoop.TERRAIN_TILES_X - MARGIN)) {
+            // if going out in x
+            return;
+        }
+        if (super.getPosition().z + dz > -MARGIN ||
+                (super.getPosition().z + dz) < -(Terrain.getSIZE() * MainGameLoop.TERRAIN_TILES_Z - MARGIN)) {
+            // if going out in z
+            return;
+        }
         super.increasePosition(dx, dy, dz);
         float terrainHeight = terrain[terrainX][terrainZ].getTerrainHeight(super.getPosition().x, super.getPosition().z);
-        if (super.getPosition().y < terrainHeight + 5) {
+        if (super.getPosition().y < terrainHeight + MARGIN) {
             // if too close to ground
-            super.getPosition().y = terrainHeight + 5;
+            super.getPosition().y = terrainHeight + MARGIN;
         }
-        if (waterRenderer.isUnderWater(super.getPosition())){
+        if (waterRenderer.isUnderWater(super.getPosition())) {
             // if underwater
             super.getPosition().y += 0.2f;
         }
@@ -60,9 +72,9 @@ public class Player extends Entity {
             this.currentTurnSpeed = 0;
         }
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_Q)){
+        if (Keyboard.isKeyDown(Keyboard.KEY_Q)) {
             this.currentVTOLSpeed = VTOL_SPEED;
-        } else if(Keyboard.isKeyDown(Keyboard.KEY_E)){
+        } else if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
             this.currentVTOLSpeed = -VTOL_SPEED;
         } else {
             this.currentVTOLSpeed = 0;

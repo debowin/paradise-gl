@@ -37,7 +37,7 @@ void main(void) {
 
     float waterDepth = floorDistance - waterDistance;
 
-    // water wave distortion with clamping for glitch correction
+    // water wave distortion with clamping for edge glitch correction
     vec2 distortedTexCoords = texture(dudvMap, vec2(textureCoords.x + moveFactor, textureCoords.y)).rg * 0.1;
     distortedTexCoords = textureCoords + vec2(distortedTexCoords.x, distortedTexCoords.y + moveFactor);
     vec2 totalDistortion = (texture(dudvMap, distortedTexCoords).rg * 2.0 - 1.0) * waveStrength * clamp(waterDepth/20.0, 0.0, 1.0);
