@@ -8,31 +8,31 @@ For other platforms, you'll need to download them separately from [here](https:/
 ## Snapshots
 
 ##### Nature's Beauty
-![showcase](https://github.umn.edu/chatt086/water-gl/raw/master/snaps/showcase.png)
+![showcase](snaps/showcase.png)
 Just an aesthetic shot of our scene.
 
 ##### Fake Lighting(Lamp) & Transparent Textures (Pine, Fern)
-![fake_lighting](https://github.umn.edu/chatt086/water-gl/raw/master/snaps/fake_lighting.png)
+![fake_lighting](snaps/fake_lighting.png)
 * We can fully see through parts of the Fern's and Pine's leaves.
 * We've lit up the lamp as if it were the source of the light.
 
 ##### Fogging, Skybox, Multi-Textured Terrain, Texture Atlases (Bob, Fern)
-![fogging_skybox](https://github.umn.edu/chatt086/water-gl/raw/master/snaps/fogging_skybox.png)
+![fogging_skybox](snaps/fogging_skybox.png)
 * Distant trees and plateaus appear hazed in the fog.
 * The cloudy sky spans all over the forest.
 * The terrain has multiple surfaces - grassy, dirt, path, flower patches.
 * There are trees and ferns with different colors.
 
 ##### Water Reflections - Fresnel Effect
-![reflections](https://github.umn.edu/chatt086/water-gl/raw/master/snaps/reflections.png)
+![reflections](snaps/reflections.png)
 More reflection if you view the water from the side.
 
 ##### Water Refractions - Fresnel Effect
-![refractions](https://github.umn.edu/chatt086/water-gl/raw/master/snaps/refractions.png)
+![refractions](snaps/refractions.png)
 More refraction through the water surface if you see it from the top.
 
 ## SIMULATION VIDEO
-[![video_snap](https://github.umn.edu/chatt086/water-gl/raw/master/snaps/video_snap.png)](https://www.youtube.com/watch?v=hKbuqAo_hi0)
+[![video_snap](snaps/video_snap.png)](https://www.youtube.com/watch?v=hKbuqAo_hi0)
 
 ## CONTROLS
 
