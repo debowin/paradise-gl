@@ -1,5 +1,5 @@
 # paradise-gl
-Computer Graphics Final Project - Paradise: Forest and Water Simulation.
+Computer Graphics Final Project - Paradise: Forest and Water Simulation. Inspired by the wonderful tutorial series https://www.youtube.com/playlist?list=PLRIWtICgwaX23jiqVByUs0bqhnalNTNZh by ThinMatrix with several additions of my own.
 
 ## Setup Instructions
 * Add the JARs under lib/jars to your project's libraries. This includes LWJGL, SlickUtils and PNGDecoder.
