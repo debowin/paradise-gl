@@ -58,6 +58,7 @@ public class Player extends Entity {
     private void handleInput() {
         if (Keyboard.isKeyDown(Keyboard.KEY_W)) {
             this.currentSpeed = RUN_SPEED;
+            setRotX(0);
         } else if (Keyboard.isKeyDown(Keyboard.KEY_S)) {
             this.currentSpeed = -RUN_SPEED;
         } else {
@@ -74,15 +75,26 @@ public class Player extends Entity {
 
         if (Keyboard.isKeyDown(Keyboard.KEY_Q)) {
             this.currentVTOLSpeed = VTOL_SPEED;
+            rotate(0.3f, 0, 0);
+            capRotation();
         } else if (Keyboard.isKeyDown(Keyboard.KEY_E)) {
             this.currentVTOLSpeed = -VTOL_SPEED;
+            rotate(-0.3f, 0, 0);
+            capRotation();
         } else {
             this.currentVTOLSpeed = 0;
         }
-
         if (Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
             this.currentVTOLSpeed *= 3;
             this.currentSpeed *= 3;
+        }
+    }
+    private void capRotation(){
+        float rotationCap = 25f;
+        if(getRotX() > rotationCap){
+            setRotX(rotationCap);
+        }else if(getRotX() < -rotationCap){
+            setRotX(-rotationCap);
         }
     }
 }
